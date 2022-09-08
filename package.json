@@ -5,8 +5,9 @@
   "scripts": {
     "postinstall": "patch-package",
     "clean": "mkdir -p dist && rm -rf dist/* && cp -r _raw/* dist",
+    "clean:local": "mkdir -p /Users/richard/projects/RabbyHub/RabbyDesktop/assets/chrome_plugins/rabby_local && rm -rf /Users/richard/projects/RabbyHub/RabbyDesktop/assets/chrome_plugins/rabby_local/* && cp -r _raw/* /Users/richard/projects/RabbyHub/RabbyDesktop/assets/chrome_plugins/rabby_local",
     "make-vars": "node scripts/make-vars.js",
-    "build:dev": "npm run clean && npm run make-vars && TAILWIND_MODE=watch webpack --progress --env config=dev",
+    "build:dev": "npm run clean:local && npm run make-vars && TAILWIND_MODE=watch webpack --progress --env config=dev",
     "build:pro": "npm run clean && npm run make-vars && webpack --progress --env config=pro",
     "build:debug": "npm run clean && npm run make-vars && webpack --progress --env config=debug",
     "build:sourcemap": "npm run clean && npm run make-vars && webpack --progress --env config=sourcemap",

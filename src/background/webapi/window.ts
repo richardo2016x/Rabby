@@ -40,15 +40,19 @@ const createFullScreenWindow = ({ url, ...rest }) => {
   });
 };
 
+function getCurrent(getInfo?: Windows.GetInfo) {
+  return isDesktop ? browser.windows.getLastFocused(getInfo) : browser.windows.getCurrent(getInfo);
+}
+
 const create = async ({ url, ...rest }): Promise<number | undefined> => {
-  const { top: cTop, left: cLeft, width } = await browser.windows.getCurrent({
+  const { top: cTop, left: cLeft, width } = await getCurrent({
     windowTypes: ['normal'],
   } as Windows.GetInfo);
 
   const top = cTop;
   const left = cLeft! + width! - WINDOW_SIZE.width;
 
-  const currentWindow = await browser.windows.getCurrent();
+  const currentWindow = await getCurrent();
   let win;
   if (currentWindow.state === 'fullscreen') {
     // browser.windows.create not pass state to chrome
@@ -76,10 +80,16 @@ const remove = async (winId) => {
   return browser.windows.remove(winId);
 };
 
+const isDesktop = window.navigator.userAgent.indexOf('RabbyDesktop/')
+
 const openNotification = ({ route = '', ...rest } = {}): Promise<
   number | undefined
 > => {
-  const url = `notification.html${route && `#${route}`}`;
+  let url = `notification.html${route && `#${route}`}`;
+  if (isDesktop) {
+    url = chrome.runtime.getURL(url);
+  }
+  // console.log('[feat] url, rest', url, rest, rest);
 
   return create({ url, ...rest });
 };

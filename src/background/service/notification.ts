@@ -284,11 +284,15 @@ class NotificationService extends Events {
   openNotification = (winProps) => {
     if (this.isLocked) return;
     this.lock();
+    console.log('[feat] ::openNotification this.notifiWindowId', this.notifiWindowId);
+
     if (this.notifiWindowId) {
       winMgr.remove(this.notifiWindowId);
       this.notifiWindowId = 0;
     }
+    console.log('[feat] ::openNotification winProps', winProps);
     winMgr.openNotification(winProps).then((winId) => {
+      console.log('[feat] ::openNotification winId', winProps);
       this.notifiWindowId = winId!;
     });
   };

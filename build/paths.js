@@ -12,7 +12,8 @@ module.exports = {
   notificationHtml: rootResolve('src/ui/notification.html'),
   indexHtml: rootResolve('src/ui/index.html'),
   backgroundHtml: rootResolve('src/background/background.html'),
-  dist: rootResolve('dist'),
+  // dist: rootResolve('dist'),
+  dist: '/Users/richard/projects/RabbyHub/RabbyDesktop/assets/chrome_plugins/rabby_local',
 
   rootResolve,
 }
