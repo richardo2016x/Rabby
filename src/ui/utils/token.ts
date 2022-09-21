@@ -103,7 +103,10 @@ export const geTokenDecimals = async (
       ],
       provider
     );
+    console.log('[feat] geTokenDecimals:: decimals [0] contract', contract);
     const decimals = await contract.decimals();
+    console.log('[feat] geTokenDecimals:: decimals', decimals);
+    
     return decimals;
   } catch (e) {
     const contract = new Contract(

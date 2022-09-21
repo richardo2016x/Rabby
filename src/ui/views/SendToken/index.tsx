@@ -534,7 +534,10 @@ const SendToken = () => {
     const chain = Object.values(CHAINS).find(
       (item) => item.serverId === currentToken.chain
     );
+    console.log('[feat] chain', chain);
     if (!chain) return;
+    console.log('[feat] currentToken.id', currentToken.id);
+    console.log('[feat] chain.nativeTokenAddress', chain.nativeTokenAddress);
     if (currentToken.id === chain.nativeTokenAddress) {
       if (
         currentToken.symbol !== chain.nativeTokenSymbol ||
@@ -554,14 +557,18 @@ const SendToken = () => {
       return;
     }
     try {
+      console.log('[feat] try to get decimals');
       const decimals = await geTokenDecimals(
         currentToken.id,
         new providers.JsonRpcProvider(chain.thridPartyRPC)
       );
+      console.log('[feat] decimals', decimals);
+
       const symbol = await getTokenSymbol(
         currentToken.id,
         new providers.JsonRpcProvider(chain.thridPartyRPC)
       );
+      console.log('[feat] symbol', symbol);
       if (
         symbol !== currentToken.symbol ||
         decimals !== currentToken.decimals
